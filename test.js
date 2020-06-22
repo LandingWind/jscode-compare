@@ -1,8 +1,6 @@
-import parseCodeToAST from './dist/generateAST'
+import ast from './dist/ast'
 
 (async () => {
-    const astResult = await parseCodeToAST('./demo.js');
-    console.log(astResult);
+    const cmpRes = await ast.compare('./demo.js', './demo2.js', true)
+    console.log(cmpRes)
 })()
-
-console.log(typeof parseCodeToAST);

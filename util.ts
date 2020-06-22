@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import { parse } from '@babel/parser'
 
 function readFile(path: string) {
     return new Promise((resolve: (data: string) => void, reject: (err: NodeJS.ErrnoException) => void) => {
@@ -13,12 +12,19 @@ function readFile(path: string) {
     })
 }
 
-async function parseCodeToAST(inputModule: string) {
-    const content = await readFile(inputModule);
-    console.log("file-content >>>", content);
-    const ast = parse(content, { sourceType: 'module' });
-    return ast;
+function writeFile(path: string, content: string) {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(path, content, (err) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve()
+            }
+        });
+    })
 }
 
-
-export default parseCodeToAST
+export default {
+    readFile,
+    writeFile
+}
